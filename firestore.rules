@@ -1,0 +1,144 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null &&
+             request.auth.token.email in [
+               'engineersoran1@gmail.com'
+               // Add more admin emails here as needed
+             ];
+    }
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Services Collection - Public read, admin write
+    match /services/{serviceId} {
+      // Anyone can read services (for public website)
+      allow read: if true;
+
+      // Only admins can create, update, or delete services
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Bookings Collection
+    match /bookings/{bookingId} {
+      // Authenticated users can create bookings
+      allow create: if isAuthenticated() &&
+                       request.resource.data.userId == request.auth.uid;
+
+      // Users can read their own bookings, admins can read all
+      allow read: if isAuthenticated() &&
+                     (resource.data.userId == request.auth.uid || isAdmin());
+
+      // Admins can update or delete bookings
+      // Also allow payment callback to update payment status
+      allow update: if isAdmin() ||
+                       (isAuthenticated() &&
+                        resource.data.userId == request.auth.uid &&
+                        request.resource.data.keys().hasOnly(['status', 'paymentStatus', 'transactionId', 'paidAt']));
+
+      allow delete: if isAdmin();
+    }
+
+    // Files Collection
+    match /files/{fileId} {
+      // Anyone can read files list
+      allow read: if true;
+
+      // Only admins can create, update, or delete files
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Purchases Collection
+    match /purchases/{purchaseId} {
+      // Users can read their own purchases
+      allow read: if isAuthenticated() &&
+                     (resource.data.userId == request.auth.uid || isAdmin());
+
+      // System can create purchases (after payment verification)
+      allow create: if isAuthenticated() &&
+                       request.resource.data.userId == request.auth.uid;
+
+      // Only admins can update or delete purchases
+      allow update, delete: if isAdmin();
+    }
+
+    // Tools Collection
+    match /tools/{toolId} {
+      // Anyone can read tools list
+      allow read: if true;
+
+      // Only admins can create, update, or delete tools
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      // Users can read and write their own data
+      allow read, write: if isAuthenticated() && userId == request.auth.uid;
+
+      // Admins can read all user data
+      allow read: if isAdmin();
+    }
+
+    // Media Collection - For image uploads
+    match /media/{mediaId} {
+      // Anyone can read media files (public images)
+      allow read: if true;
+
+      // Only admins can create, update, or delete media
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Home Page Content - Editable homepage content
+    match /homePageContent/{docId} {
+      // Anyone can read homepage content
+      allow read: if true;
+
+      // Only admins can update homepage content
+      allow write: if isAdmin();
+    }
+
+    // Site Settings - Global website settings
+    match /siteSettings/{docId} {
+      // Anyone can read site settings (for public info like contact)
+      allow read: if true;
+
+      // Only admins can update settings
+      allow write: if isAdmin();
+    }
+
+    // Categories - For organizing services/tools/content
+    match /categories/{categoryId} {
+      // Anyone can read categories
+      allow read: if true;
+
+      // Only admins can create, update, or delete categories
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Testimonials - Client testimonials
+    match /testimonials/{testimonialId} {
+      // Public can read published testimonials, admins can read all
+      allow read: if resource.data.published == true || isAdmin();
+
+      // Only admins can create, update, or delete testimonials
+      allow create, update, delete: if isAdmin();
+    }
+
+    // FAQs - Frequently Asked Questions
+    match /faqs/{faqId} {
+      // Public can read published FAQs, admins can read all
+      allow read: if resource.data.published == true || isAdmin();
+
+      // Only admins can create, update, or delete FAQs
+      allow create, update, delete: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(npm run build:*)",
+      "Bash(firebase deploy:*)",
+      "Bash(npm run dev:*)",
+      "Bash(if [ -f .env ])",
+      "Bash(then echo \"WARNING: .env file exists\")",
+      "Bash(cat:*)",
+      "Bash(else echo \"No .env file found - Good!\")",
+      "Bash(fi)",
+      "Bash(git init:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

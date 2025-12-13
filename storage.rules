@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null &&
+             request.auth.token.email in [
+               'engineersoran1@gmail.com'
+               // Add more admin emails here as needed
+             ];
+    }
+
+    // Media uploads - only admins can upload, anyone can read
+    match /media/{allPaths=**} {
+      // Anyone can read/download media files
+      allow read: if true;
+
+      // Only authenticated admins can write (upload/update/delete)
+      allow write: if isAdmin();
+    }
+
+    // Default deny for all other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

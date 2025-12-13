@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 84% 4.9%;
+    --foreground: 0 0% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 0 0% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 260 80% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 32.6% 17.5%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 32.6% 17.5%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 32.6% 25%;
+    --input: 217 32.6% 17.5%;
+    --ring: 260 80% 65%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(135deg, #1a6c1e, #1f70b2, #fd2db8);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+}
+
+@layer utilities {
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
