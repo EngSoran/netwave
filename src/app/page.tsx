@@ -52,26 +52,22 @@ export default function Home() {
 
   return (
     <div className="flex-1">
-      <section className="relative w-full pt-20 pb-12 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent pointer-events-none" />
-        <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="inline-block mb-6 px-4 py-2 bg-primary/20 rounded-full border border-primary/30">
-              <span className="text-primary font-semibold text-sm">أفضل حلول الشبكات في العراق</span>
-            </div>
-            <h1 className="text-4xl font-headline font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-white text-shadow-lg mb-6 leading-tight">
-              أبني شبكتك مع <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">الأفضل</span>
+      <section className="relative w-full pt-20 pb-12 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32">
+        <div className="container mx-auto px-4 md:px-6 text-center relative">
+          <div className="max-w-3xl mx-auto">
+            <h1 className="text-4xl font-headline font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-white text-shadow-lg">
+              أبني شبكتك مع الافضل
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-300 md:text-xl max-w-2xl mx-auto">
+            <p className="mt-6 text-lg leading-8 text-gray-300 md:text-xl">
               توفر NetWeave حلول شبكات متطورة، من الأمان القوي إلى الاتصال السلس، مصممة للارتقاء ببنيتك التحتية.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="btn-primary w-full sm:w-auto shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all">
+              <Button asChild size="lg" className="btn-primary w-full sm:w-auto">
                 <Link href="/booking">
                   احجز استشارة <ArrowLeft className="mr-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" className="w-full sm:w-auto glass border border-primary/30 hover:bg-primary/10">
+              <Button asChild size="lg" className="w-full sm:w-auto glass">
                 <a href="https://wa.me/9647716295191" target="_blank" rel="noopener noreferrer">
                   تواصل عبر واتساب
                 </a>
