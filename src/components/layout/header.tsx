@@ -118,7 +118,7 @@ export default function Header() {
         <div className="flex items-center gap-2 md:gap-4">
           <IpDetector />
           <Button variant="ghost" size="icon" asChild className="text-white hover:bg-white/10">
-            <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" aria-label="تواصل عبر واتساب">
+            <a href="https://wa.me/9647716295191" target="_blank" rel="noopener noreferrer" aria-label="تواصل عبر واتساب">
               <WhatsappIcon />
             </a>
           </Button>
